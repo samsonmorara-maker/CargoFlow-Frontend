@@ -4,11 +4,22 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
+  try {
     const saved = localStorage.getItem("user");
-    return saved ? JSON.parse(saved) : null;
-  });
 
+    if (!saved || saved === "undefined") {
+      return null;
+    }
+
+    return JSON.parse(saved);
+  } catch (error) {
+    console.error(error);
+    localStorage.removeItem("user");
+    return null;
+  }
+});
   const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     setLoading(false);

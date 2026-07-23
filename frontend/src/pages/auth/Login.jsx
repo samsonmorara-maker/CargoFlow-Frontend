@@ -23,11 +23,11 @@ function Login() {
 
     const data = await loginUser(formData);
 
-    login(
-      data.user,
-      data.access,
-      data.refresh
-    );
+    login({
+    user: data.user,
+    access: data.access,
+    refresh: data.refresh,
+    });
 
     // Redirect according to role
     if (data.user.is_staff) {
