@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   FaTruck,
   FaBoxOpen,
   FaCheckCircle,
   FaShippingFast,
+  FaHistory,
+  FaCar,
+  FaUser,
 } from "react-icons/fa";
 
 import StatsCard from "../../components/dashboard/StatsCard";
@@ -15,6 +19,8 @@ import RecentShipment from "../../components/dashboard/RecentShipment";
 import { getDriverDashboard } from "../../api/driver";
 
 function Dashboard() {
+  const navigate = useNavigate();
+
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -43,12 +49,20 @@ function Dashboard() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
 
-      <h1 className="text-3xl font-bold">
-        Driver Dashboard
-      </h1>
+      {/* Header */}
+      <div>
+        <h1 className="text-3xl font-bold">
+          Driver Dashboard
+        </h1>
 
+        <p className="mt-2 text-gray-500">
+          Welcome back. Here's today's delivery overview.
+        </p>
+      </div>
+
+      {/* Statistics */}
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
 
         <StatsCard
@@ -77,6 +91,7 @@ function Dashboard() {
 
       </div>
 
+      {/* Charts */}
       <div className="grid gap-8 xl:grid-cols-2">
 
         <ShipmentChart />
@@ -85,7 +100,71 @@ function Dashboard() {
 
       </div>
 
+      {/* Recent Shipment */}
       <RecentShipment />
+
+      {/* Quick Actions */}
+      <div>
+
+        <h2 className="mb-5 text-2xl font-semibold">
+          Quick Actions
+        </h2>
+
+        <div className="grid gap-6 md:grid-cols-2">
+
+          <button
+            onClick={() => navigate("/driver/history")}
+            className="rounded-xl bg-white p-6 text-left shadow transition hover:-translate-y-1 hover:shadow-lg"
+          >
+
+            <FaHistory className="mb-4 text-3xl text-green-600" />
+
+            <h3 className="text-lg font-semibold">
+              Delivery History
+            </h3>
+
+            <p className="mt-2 text-sm text-gray-500">
+              View all completed deliveries.
+            </p>
+
+          </button>
+
+          <button
+            onClick={() => navigate("/driver/vehicle")}
+            className="rounded-xl bg-white p-6 text-left shadow transition hover:-translate-y-1 hover:shadow-lg"
+          >
+
+            <FaCar className="mb-4 text-3xl text-blue-600" />
+
+            <h3 className="text-lg font-semibold">
+              My Vehicle
+            </h3>
+
+            <p className="mt-2 text-sm text-gray-500">
+              View and manage your assigned vehicle.
+            </p>
+
+          </button>
+          <button
+        onClick={() => navigate("/driver/profile")}
+        className="rounded-xl bg-white p-6 shadow transition hover:-translate-y-1 hover:shadow-lg"
+              >
+
+        <FaUser className="mb-4 text-3xl text-purple-600"/>
+
+          <h3 className="text-lg font-semibold">
+            My Profile
+        </h3>
+
+            <p className="mt-2 text-sm text-gray-500">
+             Update your personal information.
+          </p>
+
+        </button>
+
+        </div>
+
+      </div>
 
     </div>
   );
