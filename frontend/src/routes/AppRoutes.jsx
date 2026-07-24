@@ -9,6 +9,7 @@ import DriverDashboard from "../pages/driver/Dashboard";
 import Vehicle from "../pages/driver/Vehicle";
 import AdminDashboard from "../pages/admin/Dashboard";
 import Shipment from "../pages/customer/Shipment";
+import Profile from "../pages/customer/Profile";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
 import Tracking from "../pages/customer/Tracking";
 import Deliveries from "../pages/driver/Deliveries";
@@ -76,6 +77,14 @@ function AppRoutes() {
         <Tracking />
       </ProtectedRoute>
       }/>
+      <Route
+  path="/customer/profile"
+  element={
+    <ProtectedRoute allowedRoles={["CUSTOMER"]}>
+      <Profile />
+    </ProtectedRoute>
+  }
+/>
       <Route
         path="/driver/dashboard"
         element={

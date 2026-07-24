@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
 import { getShipment } from "../../api/shipment";
 import { pickupShipment } from "../../api/driver";
+
+import QRScanner from "../../components/qr/QRScanner";
 
 function Pickup() {
   const { uuid } = useParams();
   const navigate = useNavigate();
 
   const [shipment, setShipment] = useState(null);
-  const [pickupToken, setPickupToken] = useState("");
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+
+  const [pickupToken, setPickupToken] = useState("");
+  const [showScanner, setShowScanner] = useState(false);
 
   useEffect(() => {
     loadShipment();
@@ -30,7 +35,7 @@ function Pickup() {
 
   const handlePickup = async () => {
     if (!pickupToken.trim()) {
-      alert("Enter the pickup QR token.");
+      alert("Enter or scan the pickup code.");
       return;
     }
 
@@ -44,13 +49,12 @@ function Pickup() {
       alert(response.message);
 
       navigate("/driver/deliveries");
-
     } catch (error) {
       console.error(error);
 
       alert(
         error.response?.data?.detail ||
-        "Pickup failed."
+          "Pickup failed."
       );
     } finally {
       setSubmitting(false);
@@ -80,6 +84,8 @@ function Pickup() {
         Pickup Shipment
       </h1>
 
+      {/* Shipment Information */}
+
       <div className="rounded-xl bg-white p-6 shadow">
 
         <h2 className="text-xl font-semibold">
@@ -89,7 +95,7 @@ function Pickup() {
         <div className="mt-5 space-y-3">
 
           <p>
-            <strong>Tracking:</strong>{" "}
+            <strong>Tracking Number:</strong>{" "}
             {shipment.tracking_number}
           </p>
 
@@ -117,10 +123,20 @@ function Pickup() {
 
       </div>
 
+      {/* Pickup Verification */}
+
       <div className="rounded-xl bg-white p-6 shadow">
 
-        <label className="font-semibold">
-          Pickup QR Token
+        <h2 className="text-xl font-semibold">
+          Pickup Verification
+        </h2>
+
+        <p className="mt-2 text-gray-500">
+          Scan the sender's QR code or manually enter the pickup code.
+        </p>
+
+        <label className="mt-6 block font-medium">
+          Pickup Code
         </label>
 
         <input
@@ -130,20 +146,43 @@ function Pickup() {
             setPickupToken(e.target.value)
           }
           className="mt-2 w-full rounded-lg border p-3"
-          placeholder="Paste pickup QR token"
+          placeholder="Enter pickup code"
         />
 
-        <button
-          onClick={handlePickup}
-          disabled={submitting}
-          className="mt-6 w-full rounded-lg bg-blue-600 py-3 text-white hover:bg-blue-700"
-        >
-          {submitting
-            ? "Confirming Pickup..."
-            : "Confirm Pickup"}
-        </button>
+        <div className="mt-6 flex gap-4">
+
+          <button
+            onClick={() => setShowScanner(true)}
+            className="flex-1 rounded-lg bg-gray-800 py-3 text-white hover:bg-gray-900"
+          >
+            Scan QR Code
+          </button>
+
+          <button
+            onClick={handlePickup}
+            disabled={submitting}
+            className="flex-1 rounded-lg bg-blue-600 py-3 text-white hover:bg-blue-700 disabled:bg-blue-300"
+          >
+            {submitting
+              ? "Confirming..."
+              : "Confirm Pickup"}
+          </button>
+
+        </div>
 
       </div>
+
+      {/* QR Scanner */}
+
+      {showScanner && (
+        <QRScanner
+          onScan={(value) => {
+            setPickupToken(value);
+            setShowScanner(false);
+          }}
+          onClose={() => setShowScanner(false)}
+        />
+      )}
 
     </div>
   );

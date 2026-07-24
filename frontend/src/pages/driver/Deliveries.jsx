@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { getAssignedShipments } from "../../api/driver";
 
-import DriverShipmentCard from "../../components/shipment/DriverShipmentCard";
+import ShipmentCard from "../../components/shipment/ShipmentCard";
 
 function Deliveries() {
   const [shipments, setShipments] = useState([]);
@@ -48,7 +48,7 @@ function Deliveries() {
         <div className="grid gap-6">
 
           {shipments.map((shipment) => (
-            <DriverShipmentCard
+            <ShipmentCard
               key={shipment.uuid}
               shipment={shipment}
             />
