@@ -11,6 +11,10 @@ import AdminDashboard from "../pages/admin/Dashboard";
 import Shipment from "../pages/customer/Shipment";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
 import Tracking from "../pages/customer/Tracking";
+import Deliveries from "../pages/driver/Deliveries";
+import ShipmentsDetails from "../pages/driver/ShipmentsDetails";
+import Pickup from "../pages/driver/Pickup";
+import Delivery from "../pages/driver/Delivery";
 function AppRoutes() {
   return (
     <Routes>
@@ -54,8 +58,8 @@ function AppRoutes() {
             <ProtectedRoute allowedRoles={["CUSTOMER"]}>
             <Details />
             </ProtectedRoute>
-              }
-              /> <Route
+              }/> 
+        <Route
   path="/customer/tracking"
   element={
     <ProtectedRoute allowedRoles={["CUSTOMER"]}>
@@ -78,6 +82,38 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+  path="/driver/deliveries"
+  element={
+    <ProtectedRoute allowedRoles={["DRIVER"]}>
+      <Deliveries />
+    </ProtectedRoute>
+  }
+/>
+    <Route
+  path="/driver/shipment/:uuid"
+  element={
+    <ProtectedRoute allowedRoles={["DRIVER"]}>
+      <ShipmentsDetails />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/driver/pickup/:uuid"
+  element={
+    <ProtectedRoute allowedRoles={["DRIVER"]}>
+      <Pickup />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/driver/delivery/:uuid"
+  element={
+    <ProtectedRoute allowedRoles={["DRIVER"]}>
+      <Delivery />
+    </ProtectedRoute>
+  }
+/>
       <Route
         path="/driver/vehicle"
         element={
