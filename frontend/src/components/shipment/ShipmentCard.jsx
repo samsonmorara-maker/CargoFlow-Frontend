@@ -4,18 +4,22 @@ import {
   FaMapMarkerAlt,
   FaTruck,
   FaCalendarAlt,
+  FaEye,
+  FaLocationArrow,
 } from "react-icons/fa";
 
 function ShipmentCard({ shipment }) {
   const navigate = useNavigate();
 
   const statusColors = {
-    PENDING: "bg-yellow-100 text-yellow-700",
-    ASSIGNED: "bg-blue-100 text-blue-700",
-    IN_TRANSIT: "bg-indigo-100 text-indigo-700",
-    DELIVERED: "bg-green-100 text-green-700",
-    CANCELLED: "bg-red-100 text-red-700",
-  };
+  PENDING: "bg-yellow-100 text-yellow-700",
+  CONFIRMED: "bg-sky-100 text-sky-700",
+  DRIVER_ASSIGNED: "bg-blue-100 text-blue-700",
+  PICKED_UP: "bg-indigo-100 text-indigo-700",
+  IN_TRANSIT: "bg-purple-100 text-purple-700",
+  DELIVERED: "bg-green-100 text-green-700",
+  CANCELLED: "bg-red-100 text-red-700",
+};
 
   return (
     <div className="rounded-xl bg-white p-6 shadow transition hover:shadow-lg">
@@ -88,7 +92,41 @@ function ShipmentCard({ shipment }) {
             </p>
           </div>
         </div>
+        <div className="flex items-start gap-3">
+            <FaBox className="mt-1 text-red-500" />
 
+            <div>
+             <p className="text-sm text-gray-500">
+                 Priority
+            </p>
+
+            <p className="font-medium">
+            {shipment.priority}
+            </p>
+            </div>
+            </div>
+            <div>
+        <p className="text-sm text-gray-500">
+            Estimated Price
+            </p>
+
+            <p className="text-xl font-bold text-green-600">
+            KES {shipment.estimated_price}
+            </p>
+        </div>
+            {
+        shipment.driver_name && (
+        <div>
+        <p className="text-sm text-gray-500">
+            Driver
+        </p>
+
+        <p className="font-medium">
+        {shipment.driver_name}
+        </p>
+        </div>
+            )
+        }
         <div className="flex items-start gap-3">
           <FaCalendarAlt className="mt-1 text-purple-600" />
 
@@ -118,12 +156,14 @@ function ShipmentCard({ shipment }) {
         </button>
 
         <button
-          onClick={() =>
-            navigate(`/customer/tracking/${shipment.tracking_number}`)
-          }
-          className="rounded-lg border border-gray-300 px-5 py-3 hover:bg-gray-100"
-        >
-          Track Shipment
+        onClick={() => {
+        console.log("Shipment:", shipment);
+         console.log("Tracking:", shipment.tracking_number);
+
+        navigate(`/customer/tracking/${shipment.tracking_number}`);
+        }}
+        className="rounded-lg border border-gray-300 px-5 py-3 hover:bg-gray-100">
+        Track Shipment
         </button>
 
       </div>

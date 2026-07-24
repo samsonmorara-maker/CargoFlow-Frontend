@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-
+import TrackingSearch from "../pages/customer/TrackingSearch";
 import Login from "../pages/auth/Login";
 import Signup from "../pages/auth/Signup";
 import History from "../pages/customer/History";
@@ -10,7 +10,7 @@ import Vehicle from "../pages/driver/Vehicle";
 import AdminDashboard from "../pages/admin/Dashboard";
 import Shipment from "../pages/customer/Shipment";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
-
+import Tracking from "../pages/customer/Tracking";
 function AppRoutes() {
   return (
     <Routes>
@@ -55,7 +55,21 @@ function AppRoutes() {
             <Details />
             </ProtectedRoute>
               }
-              />
+              /> <Route
+  path="/customer/tracking"
+  element={
+    <ProtectedRoute allowedRoles={["CUSTOMER"]}>
+      <TrackingSearch />
+    </ProtectedRoute>
+  }
+/>
+              <Route
+        path="/customer/tracking/:trackingNumber"
+        element={
+        <ProtectedRoute allowedRoles={["CUSTOMER"]}>
+        <Tracking />
+      </ProtectedRoute>
+      }/>
       <Route
         path="/driver/dashboard"
         element={

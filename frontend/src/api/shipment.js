@@ -27,3 +27,22 @@ export const getShipment = async (uuid) => {
 
   return response.data;
 };
+
+export const getTracking = async (trackingNumber) => {
+  const response = await api.get(
+    `/shipments/track/${trackingNumber}/`
+  );
+
+  return response.data;
+};
+
+export const cancelShipment = async (uuid, reason) => {
+  const response = await api.post(
+    `/shipments/${uuid}/cancel/`,
+    {
+      reason,
+    }
+  );
+
+  return response.data;
+};
