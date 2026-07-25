@@ -18,6 +18,7 @@ import Pickup from "../pages/driver/Pickup";
 import Delivery from "../pages/driver/Delivery";
 import DriverHistory from "../pages/driver/History";
 import DriverProfile from "../pages/driver/Profile";
+import AdminShipments from "../pages/admin/Shipments";
 function AppRoutes() {
   return (
     <Routes>
@@ -157,6 +158,14 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+  path="/admin/shipments"
+  element={
+    <ProtectedRoute allowedRoles={["ADMIN"]}>
+      <AdminShipments />
+    </ProtectedRoute>
+  }
+/>
 
     </Routes>
   );
