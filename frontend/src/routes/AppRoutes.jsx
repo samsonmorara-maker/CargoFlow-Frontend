@@ -19,6 +19,9 @@ import Delivery from "../pages/driver/Delivery";
 import DriverHistory from "../pages/driver/History";
 import DriverProfile from "../pages/driver/Profile";
 import AdminShipments from "../pages/admin/Shipments";
+import AdminShipmentDetails from "../pages/admin/ShipmentDetails";
+import Drivers from "../pages/admin/Drivers";
+import Customers from "../pages/admin/Customers";
 function AppRoutes() {
   return (
     <Routes>
@@ -163,6 +166,30 @@ function AppRoutes() {
   element={
     <ProtectedRoute allowedRoles={["ADMIN"]}>
       <AdminShipments />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/admin/shipment/:uuid"
+  element={
+    <ProtectedRoute allowedRoles={["ADMIN"]}>
+      <AdminShipmentDetails />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/admin/drivers"
+  element={
+    <ProtectedRoute allowedRoles={["ADMIN"]}>
+      <Drivers />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/admin/customers"
+  element={
+    <ProtectedRoute allowedRoles={["ADMIN"]}>
+      <Customers />
     </ProtectedRoute>
   }
 />
