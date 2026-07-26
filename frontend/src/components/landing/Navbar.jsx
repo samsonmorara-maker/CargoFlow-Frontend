@@ -12,12 +12,7 @@ function Navbar() {
           CargoFlow
         </Link>
 
-        <div className="hidden gap-8 md:flex">
-          <a href="#features">Features</a>
-          <a href="#how">How it Works</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#contact">Contact</a>
-        </div>
+      
 
         <div className="flex gap-3">
 
