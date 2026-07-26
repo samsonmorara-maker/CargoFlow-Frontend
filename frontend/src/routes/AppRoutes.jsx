@@ -22,10 +22,12 @@ import AdminShipments from "../pages/admin/Shipments";
 import AdminShipmentDetails from "../pages/admin/ShipmentDetails";
 import Drivers from "../pages/admin/Drivers";
 import Customers from "../pages/admin/Customers";
+import PickupQRCode from "../pages/customer/PickupQRCode";
+import Landing from "../pages/Landing";
 function AppRoutes() {
   return (
     <Routes>
-
+       <Route path="/" element={<Landing />} />
       <Route
         path="/"
         element={<Navigate to="/login" replace />}
@@ -59,6 +61,10 @@ function AppRoutes() {
           </ProtectedRoute>
             }
             />
+            <Route
+    path="/customer/shipments/:uuid/pickup"
+    element={<PickupQRCode />}
+/>
             <Route
             path="/customer/shipment/:uuid"
             element={

@@ -9,13 +9,13 @@ import {
   FaHistory,
   FaCar,
   FaUser,
+  FaClipboardList,
 } from "react-icons/fa";
 
 import StatsCard from "../../components/dashboard/StatsCard";
 import DriverPerformance from "../../components/dashboard/DriverPerformance";
 import ShipmentChart from "../../components/dashboard/ShipmentChart";
 import RecentShipment from "../../components/dashboard/RecentShipment";
-
 import { getDriverDashboard } from "../../api/driver";
 
 function Dashboard() {
@@ -142,6 +142,22 @@ function Dashboard() {
 
             <p className="mt-2 text-sm text-gray-500">
               View and manage your assigned vehicle.
+            </p>
+
+          </button>
+              <button
+                onClick={() => navigate("/driver/deliveries")}
+                className="rounded-xl bg-white p-6 text-left shadow transition hover:-translate-y-1 hover:shadow-lg"
+                  >
+
+                <FaClipboardList className="mb-4 text-3xl text-orange-600" />
+
+                <h3 className="text-lg font-semibold">
+                Assigned Shipments
+                </h3>
+
+              <p className="mt-2 text-sm text-gray-500">
+               View today's assigned deliveries and pickups.
             </p>
 
           </button>

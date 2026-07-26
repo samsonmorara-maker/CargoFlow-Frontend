@@ -29,30 +29,28 @@ function Shipment() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    setLoading(true);
+    try {
+        setLoading(true);
 
-    await createShipment(formData);
+        const shipment = await createShipment(formData);
 
-    alert("Shipment created successfully!");
+        navigate(
+            `/customer/shipments/${shipment.uuid}/pickup`
+        );
 
-    navigate("/customer/history");
+    } catch (error) {
+        console.error(error);
 
-  } catch (error) {
-    console.error(error);
-
-    alert(
-      error.response?.data?.detail ||
-      "Unable to create shipment."
-    );
-
-  } finally {
-    setLoading(false);
-  }
-};
-
+        alert(
+            error.response?.data?.detail ||
+            "Unable to create shipment."
+        );
+    } finally {
+        setLoading(false);
+        }
+    };
   return (
     <div className="mx-auto max-w-5xl">
 
